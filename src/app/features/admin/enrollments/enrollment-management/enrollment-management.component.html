@@ -1,0 +1,107 @@
+<div class="enrollment-page">
+
+  <div class="page-header">
+    <div class="header-left">
+      <mat-icon>assignment</mat-icon>
+      <div>
+        <h2>Enrollments</h2>
+        <p>Manage student course enrollments</p>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" (click)="openEnroll()">
+      <mat-icon>assignment_add</mat-icon> Enroll Student
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-center"><mat-spinner diameter="48" /></div>
+  } @else {
+    <div class="enrollment-layout">
+
+      <!-- Student Selector -->
+      <mat-card class="student-selector">
+        <mat-card-header>
+          <mat-card-title>Select Student</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Search students</mat-label>
+            <input matInput [(ngModel)]="searchStudent" />
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+
+          <div class="student-list">
+            @for (s of filteredStudents; track s.id) {
+              <div class="student-item"
+                   [class.selected]="selectedStudentId === s.id"
+                   (click)="onStudentSelect(s.id)">
+                <div class="avatar">{{ s.firstName[0] }}{{ s.lastName[0] }}</div>
+                <div class="student-info">
+                  <div class="student-name">{{ s.firstName }} {{ s.lastName }}</div>
+                  <div class="student-email">{{ s.email }}</div>
+                </div>
+                @if (selectedStudentId === s.id) {
+                  <mat-icon class="check-icon">check_circle</mat-icon>
+                }
+              </div>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Enrolled Courses Panel -->
+      <mat-card class="courses-panel">
+        @if (!selectedStudent) {
+          <div class="no-selection">
+            <mat-icon>person_search</mat-icon>
+            <h3>Select a student</h3>
+            <p>Choose a student from the left panel to view and manage their course enrollments.</p>
+          </div>
+        } @else {
+          <mat-card-header>
+            <div class="panel-header">
+              <div class="avatar-lg">{{ selectedStudent.firstName[0] }}{{ selectedStudent.lastName[0] }}</div>
+              <div>
+                <mat-card-title>{{ selectedStudent.firstName }} {{ selectedStudent.lastName }}</mat-card-title>
+                <mat-card-subtitle>{{ selectedStudent.email }}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+
+          <mat-card-content>
+            @if (loadingCourses) {
+              <div class="loading-center"><mat-spinner diameter="32" /></div>
+            } @else if (enrolledCourses.length === 0) {
+              <div class="empty-courses">
+                <mat-icon>book_outlined</mat-icon>
+                <p>No courses enrolled yet.</p>
+                <button mat-stroked-button color="primary" (click)="openEnroll()">
+                  <mat-icon>add</mat-icon> Enroll in a Course
+                </button>
+              </div>
+            } @else {
+              <p class="enrolled-count">
+                <strong>{{ enrolledCourses.length }}</strong> course(s) enrolled
+              </p>
+              <div class="course-chips">
+                @for (c of enrolledCourses; track c.id) {
+                  <div class="course-chip-item">
+                    <div class="course-chip-info">
+                      <span class="course-code">{{ c.code }}</span>
+                      <span class="course-name">{{ c.name }}</span>
+                      <span class="course-credits">{{ c.credits }} credits</span>
+                    </div>
+                    <button mat-icon-button color="warn"
+                            matTooltip="Unenroll" (click)="unenroll(c)">
+                      <mat-icon>remove_circle</mat-icon>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </mat-card-content>
+        }
+      </mat-card>
+    </div>
+  }
+</div>

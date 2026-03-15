@@ -1,0 +1,56 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <mat-icon>{{ isEdit ? 'edit' : 'add_circle' }}</mat-icon>
+    <h2 mat-dialog-title>{{ title }}</h2>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="form" class="form-grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Course Code</mat-label>
+        <input matInput formControlName="code" placeholder="e.g. CS101" />
+        @if (form.get('code')?.hasError('required') && form.get('code')?.touched) {
+          <mat-error>Code is required</mat-error>
+        }
+        @if (form.get('code')?.hasError('maxlength') && form.get('code')?.touched) {
+          <mat-error>Max 20 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Credits</mat-label>
+        <input matInput formControlName="credits" type="number" min="1" max="6" />
+        @if (form.get('credits')?.hasError('required') && form.get('credits')?.touched) {
+          <mat-error>Credits required</mat-error>
+        }
+        @if (form.get('credits')?.hasError('min') || form.get('credits')?.hasError('max')) {
+          <mat-error>Credits must be 1–6</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Course Name</mat-label>
+        <input matInput formControlName="name" />
+        @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+          <mat-error>Course name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description (optional)</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary"
+            (click)="onSubmit()" [disabled]="form.invalid || loading">
+      @if (loading) { <mat-spinner diameter="18" /> }
+      @else { {{ isEdit ? 'Save Changes' : 'Create Course' }} }
+    </button>
+  </mat-dialog-actions>
+</div>

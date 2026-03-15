@@ -1,0 +1,103 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+  .toolbar-logo {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+
+  .toolbar-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .spacer { flex: 1; }
+
+  .user-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-size: 14px;
+
+    .username { font-weight: 500; }
+
+    .role-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+  }
+}
+
+.tab-nav {
+  display: flex;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 0 16px;
+
+  .nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      color: #1976d2;
+      background: #f0f7ff;
+    }
+
+    &.active-tab {
+      color: #1976d2;
+      border-bottom-color: #1976d2;
+    }
+  }
+}
+
+.page-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+
+  mat-icon { color: #1976d2; font-size: 32px; width: 32px; height: 32px; }
+
+  .menu-username { font-weight: 600; font-size: 15px; }
+  .menu-role { font-size: 12px; color: #888; }
+}

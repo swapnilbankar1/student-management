@@ -1,0 +1,11 @@
+.dialog-container { min-width: 480px; }
+.dialog-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px 24px 0;
+  mat-icon { color: #f57c00; font-size: 26px; }
+  h2 { margin: 0; }
+}
+.form-col { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; }
+.full-width { width: 100%; }
+.option-row { display: flex; flex-direction: column; line-height: 1.4; }
+mat-dialog-actions { padding: 8px 16px 16px !important; gap: 8px; }

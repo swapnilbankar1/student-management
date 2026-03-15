@@ -1,0 +1,50 @@
+<div class="layout-wrapper">
+
+  <!-- Top Toolbar -->
+  <mat-toolbar class="app-toolbar" color="primary">
+    <mat-icon class="toolbar-logo">school</mat-icon>
+    <span class="toolbar-title">Student Management Frontend</span>
+    <span class="spacer"></span>
+
+    <!-- User menu -->
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-btn">
+      <mat-icon>account_circle</mat-icon>
+      <span class="username">{{ currentUser?.username }}</span>
+      <span class="role-badge">{{ currentUser?.role === 'ROLE_ADMIN' ? 'Admin' : 'User' }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+      <div class="menu-header">
+        <mat-icon>person</mat-icon>
+        <div>
+          <div class="menu-username">{{ currentUser?.username }}</div>
+          <div class="menu-role">{{ currentUser?.role }}</div>
+        </div>
+      </div>
+      <mat-divider />
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav">
+    @for (link of navLinks; track link.path) {
+      <a [routerLink]="link.path"
+         routerLinkActive="active-tab"
+         class="nav-tab">
+        <mat-icon>{{ link.icon }}</mat-icon>
+        <span>{{ link.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <router-outlet />
+  </main>
+
+</div>

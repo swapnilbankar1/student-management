@@ -1,0 +1,58 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <mat-icon>{{ isEdit ? 'edit' : 'person_add' }}</mat-icon>
+    <h2 mat-dialog-title>{{ title }}</h2>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="form" class="form-grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+        @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+          <mat-error>First name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+        @if (form.get('lastName')?.hasError('required') && form.get('lastName')?.touched) {
+          <mat-error>Last name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-icon matPrefix>email</mat-icon>
+        @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+          <mat-error>Email is required</mat-error>
+        }
+        @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+          <mat-error>Enter a valid email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone (optional)</mat-label>
+        <input matInput formControlName="phone" />
+        <mat-icon matPrefix>phone</mat-icon>
+        @if (form.get('phone')?.hasError('pattern') && form.get('phone')?.touched) {
+          <mat-error>Invalid phone format</mat-error>
+        }
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary"
+            (click)="onSubmit()" [disabled]="form.invalid || loading">
+      @if (loading) { <mat-spinner diameter="18" /> }
+      @else { {{ isEdit ? 'Save Changes' : 'Create Student' }} }
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,40 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <mat-icon>people</mat-icon>
+    <div>
+      <h2 mat-dialog-title>{{ course.name }}</h2>
+      <p>{{ course.code }} &middot; {{ course.credits }} Credits</p>
+    </div>
+  </div>
+
+  <mat-dialog-content>
+    @if (loading) {
+      <div class="loading-center"><mat-spinner diameter="36" /></div>
+    } @else if (students.length === 0) {
+      <div class="empty-state">
+        <mat-icon>person_off</mat-icon>
+        <p>No students enrolled in this course yet.</p>
+      </div>
+    } @else {
+      <p class="count-label">{{ students.length }} student(s) enrolled</p>
+      <mat-list>
+        @for (s of students; track s.id) {
+          <mat-list-item>
+            <div class="student-row">
+              <div class="avatar-sm">{{ s.firstName[0] }}{{ s.lastName[0] }}</div>
+              <div>
+                <div class="name">{{ s.firstName }} {{ s.lastName }}</div>
+                <div class="email">{{ s.email }}</div>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-divider />
+        }
+      </mat-list>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

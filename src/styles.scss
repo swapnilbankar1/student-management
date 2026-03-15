@@ -1,0 +1,77 @@
+@use '@angular/material' as mat;
+
+// ── Material 3 Theme ────────────────────────────────────────────────────────
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette
+  ),
+  typography: (
+    brand-family: 'Roboto, sans-serif',
+    bold-weight: 600
+  ),
+  density: (scale: 0)
+));
+
+html {
+  @include mat.all-component-themes($theme);
+}
+
+// ── Global Reset ─────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+// ── Material Dialog Overrides ────────────────────────────────────────────────
+.mat-mdc-dialog-container {
+  border-radius: 16px !important;
+  .mdc-dialog__surface { border-radius: 16px !important; }
+}
+
+mat-dialog-content.mat-mdc-dialog-content {
+  max-height: 70vh;
+  padding: 16px 24px !important;
+}
+
+// ── Toast Styles ─────────────────────────────────────────────────────────────
+.mat-mdc-snack-bar-container {
+  border-radius: 10px !important;
+
+  &.toast-success .mdc-snackbar__surface {
+    background: #2e7d32 !important;
+    color: white !important;
+  }
+  &.toast-error .mdc-snackbar__surface {
+    background: #c62828 !important;
+    color: white !important;
+  }
+  &.toast-info .mdc-snackbar__surface {
+    background: #1565c0 !important;
+    color: white !important;
+  }
+  &.toast-warning .mdc-snackbar__surface {
+    background: #e65100 !important;
+    color: white !important;
+  }
+
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: rgba(255,255,255,0.85) !important;
+  }
+}
+
+// ── Scrollbar ─────────────────────────────────────────────────────────────────
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: #f1f1f1; border-radius: 4px; }
+::-webkit-scrollbar-thumb  { background: #bbb; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #888; }
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+.mat-mdc-card { box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
